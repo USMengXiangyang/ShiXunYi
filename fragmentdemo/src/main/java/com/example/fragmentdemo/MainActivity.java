@@ -20,6 +20,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Button hide;
     private Button replace;
     private Button show;
+    private Button add;
+    private FragmentTransaction transaction;
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         btn.setOnClickListener(this);
         replace.setOnClickListener(this);
         show.setOnClickListener(this);
+        add.setOnClickListener(this);
 
     }
 
@@ -38,6 +42,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         btn = (Button) findViewById(R.id.add_fragment);
         replace = (Button)findViewById(R.id.replace_other);
         show = (Button)findViewById(R.id.show_firstfragment);
+        add = (Button)findViewById(R.id.add_other);
     }
 
     @Override
@@ -78,6 +83,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
         switch (view.getId()){
             case R.id.add_fragment:
                 first = new FirstFragment();
@@ -85,34 +92,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 String name = btn.getText().toString().trim();
                 bundle.putString("name",name);
                 first.setArguments(bundle);
-                FragmentManager manager =getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-
                 transaction.add(R.id.fl,first);
-                transaction.commit();
                 break;
             case R.id.hide_fragment:
-                FragmentManager manager1 = getSupportFragmentManager();
-                FragmentTransaction transaction1 = manager1.beginTransaction();
-                transaction1.hide(first);
-                transaction1.commit();
+                transaction.hide(first);
                 break;
             case R.id.replace_other:
                 SecondFragment secondFragment = new SecondFragment();
-                FragmentManager manager2 = getSupportFragmentManager();
-                FragmentTransaction transaction2 = manager2.beginTransaction();
-                transaction2.replace(R.id.fl,secondFragment);
-                transaction2.commit();
+                transaction.replace(R.id.fl,secondFragment);
                 break;
             case R.id.show_firstfragment:
-                FragmentManager manager3 = getSupportFragmentManager();
-                FragmentTransaction transaction3 = manager3.beginTransaction();
-                transaction3.show(first);
-                transaction3.commit();
+                transaction.show(first);
+                break;
+            case R.id.add_other:
+                SecondFragment secondFragment2 = new SecondFragment();
+                transaction.add(R.id.fl,secondFragment2);
                 break;
             default:
                 break;
         }
+        transaction.commit();
     }
 
     @Override
