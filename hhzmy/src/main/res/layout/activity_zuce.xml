@@ -13,7 +13,7 @@
         android:layout_height="40dp">
 
         <ImageView
-            android:id="@+id/log_back"
+            android:id="@+id/zuce_back1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:maxLength="11"
             android:elegantTextHeight="true"
             android:inputType="phone" />
     </LinearLayout>

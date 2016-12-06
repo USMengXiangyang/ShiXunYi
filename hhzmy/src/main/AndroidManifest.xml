@@ -53,6 +53,24 @@
     <!--PROTECTION_DANGEROUS -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <!-- 第三方登陆 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
     <application
         android:name="com.hhzmy.dataneturl.DataImageLoader"
@@ -88,25 +106,57 @@
         <activity android:name="com.hhzmy.pay.PayDemoActivity" />
         <activity android:name="com.hhzmy.webview.PayActivity" />
 
+        <!--百度集成文档APPKEY -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="WdrO4NzMUe6m3xvm6g4kn1ZcTV8haFBy" />
+        <!--QQ集成文档APPKEY -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="584657949f06fd18e4001b80"></meta-data>
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-
+        <!--注册activity -->
         <activity android:name=".OtherActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".ZuceActivity"
             android:launchMode="singleInstance" />
         <activity
             android:name=".Zuce2Activity"
             android:launchMode="singleInstance"></activity>
+        <!--QQ登陆精简版 -->
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <!--短信验证 -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <!--QQ登陆 -->
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--微信登陆 -->
+        <activity
+            android:name="com.hhzmy.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
     </application>
 
 </manifest>

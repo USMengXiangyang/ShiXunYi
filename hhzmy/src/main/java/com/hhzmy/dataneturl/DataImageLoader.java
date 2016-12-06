@@ -8,16 +8,24 @@ import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemor
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 /**
  * Created by asus on 2016/11/9.
  */
 public class DataImageLoader extends Application {
+    {
+        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+    }
+
     @Override
     public void onCreate() {
-
         super.onCreate();
         SetImage();
+        UMShareAPI.get(this);
     }
 
     private void SetImage() {
