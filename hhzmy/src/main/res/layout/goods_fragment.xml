@@ -39,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp" />
                 <ImageView
+                    android:id="@+id/goods_share"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:src="@mipmap/commodity_shear_bg"

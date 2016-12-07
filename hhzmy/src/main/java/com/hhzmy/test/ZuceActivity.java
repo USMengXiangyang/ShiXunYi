@@ -30,8 +30,11 @@ public class ZuceActivity extends AppCompatActivity {
                     Intent intent = new Intent(ZuceActivity.this, Zuce2Activity.class);
                     intent.putExtra("phone", phone);
                     startActivity(intent);
-
                 }
+                //初始化
+                cn.smssdk.SMSSDK.initSDK(ZuceActivity.this, "19a1dfb34900e", "afd2cd716a3c44ea4d16010f8df066f9");
+                //发送短信
+                cn.smssdk.SMSSDK.getVerificationCode("86",phone);
 
             }
         });

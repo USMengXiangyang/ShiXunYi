@@ -15,7 +15,6 @@ import com.hhzmy.fragment.ClassFragment;
 import com.hhzmy.fragment.MyBuyFragment;
 import com.hhzmy.fragment.ShoppingFragment;
 import com.hhzmy.fragment.ShouyeFragment;
-import com.umeng.socialize.UMShareAPI;
 
 public class HomeActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -109,11 +108,6 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 break;
         }
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
-    }
 
 }

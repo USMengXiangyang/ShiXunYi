@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -72,6 +73,7 @@ public class GoodsFragment extends Fragment implements Runnable {
     private String address;
     private My_Grid_Goods_List_Adapter adapter;
     private String str_exit;
+    private ImageView goods_share;
 
     @Nullable
     @Override
@@ -92,6 +94,12 @@ public class GoodsFragment extends Fragment implements Runnable {
         int[] imgdata = {R.mipmap.barcode_suceess, R.mipmap.barcode_suceess, R.mipmap.barcode_suceess};
         My_goods_adapter adapter = new My_goods_adapter(getActivity(), imgdata, handler);
         goods_f_vp.setAdapter(adapter);
+        goods_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return view;
     }
 
@@ -109,6 +117,7 @@ public class GoodsFragment extends Fragment implements Runnable {
         title_price_time = (TextView) view.findViewById(R.id.title_price_time);
         title_name = (TextView) view.findViewById(R.id.title_name);
         goods_list = (ListView) view.findViewById(R.id.goods_list);
+        goods_share = (ImageView) view.findViewById(R.id.goods_share);
 
     }
 

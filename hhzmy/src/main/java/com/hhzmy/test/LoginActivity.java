@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +13,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.umeng.analytics.social.UMSocialService;
-import com.umeng.socialize.SocializeException;
+import com.hhzmy.view.Code;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
@@ -27,8 +25,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText user_phone;
     private EditText user_password;
     private RadioButton log_icon1;
-    private EditText log_img_yan;
-    private ImageView log_icon2;
+    private EditText log_img_yan;//文本框的值
+    private ImageView log_icon2; //图标 //确定和刷新验证码
     private Button my_bt_log;
     private ImageView qq;
     private ImageView weixin;
@@ -36,6 +34,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private RadioButton zuce;
     private String str_userphone;
     private String str_userpass;
+
+    String getCode=null; //获取验证码的值
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         str_userphone = user_phone.getText().toString().trim();
         str_userpass = user_password.getText().toString().trim();
         user_phone.addTextChangedListener(new PhoneTextWatcher(user_phone));
+
+
+//        getCode=Code.getInstance().getCode(); //获取显示的验证码
+        log_icon2.setImageBitmap(Code.getInstance().getBitmap());
+        /*log_icon1.setImageRes(R.mipmap.icon_display,R.mipmap.icon_hidden,R.mipmap.icon_hidden);
+        //设置开关的默认状态    true开启状态
+        log_icon1.setToggleState(true);*/
+        //设置开关的监听
+        /*log_icon1.setOnToggleStateListener(new MyToggle.OnToggleStateListener() {
+            @Override
+            public void onToggleState(boolean state) {
+                if(state){
+                    Toast.makeText(getApplicationContext(), "开关开启", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "开关关闭", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });*/
 
     }
 
@@ -85,6 +104,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             //动态验证码
             case R.id.log_icon2:
+                log_icon2.setImageBitmap(Code.getInstance().getBitmap());
+                getCode=Code.getInstance().getCode();
                 break;
             //注册图标
             case R.id.zuce:
@@ -93,18 +114,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             //登陆按钮
             case R.id.my_bt_login:
-
+                String  v_code=log_img_yan.getText().toString().trim();
+                if(v_code==null||v_code.equals("")){
+                    Toast.makeText(LoginActivity.this, "没有填写验证码", 2).show();
+                }else if(!v_code.equals(getCode)){
+                    Toast.makeText(LoginActivity.this, "验证码填写不正确", 2).show();
+                }else{
+                    Toast.makeText(LoginActivity.this, "操作成功", 2).show();
+                }
                 break;
             //第三方登陆
             case R.id.qq:
                 UMShareAPI mShareAPI = UMShareAPI.get(LoginActivity.this );
-                mShareAPI.doOauthVerify(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
+                mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
                 break;
             case R.id.weixin:
                 UMShareAPI mShareAPI1 = UMShareAPI.get(LoginActivity.this );
-                mShareAPI1.doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);
+                mShareAPI1.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);
                 break;
             case R.id.wangyi:
+                Log.e("****","微博登陆");
+                UMShareAPI mShareAPI2 = UMShareAPI.get(LoginActivity.this );
+                mShareAPI2.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.SINA, umAuthListener);
                 break;
 
         }
@@ -148,5 +179,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+
     }
 }
