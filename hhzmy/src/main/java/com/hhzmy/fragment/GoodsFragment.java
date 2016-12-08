@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hhzmy.adaper.My_Grid_Goods_List_Adapter;
@@ -32,6 +33,9 @@ import com.hhzmy.bean.GoodsBean;
 import com.hhzmy.dataneturl.OkHttp;
 import com.hhzmy.test.R;
 import com.hhzmy.webview.BaiduActivity;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -91,17 +95,46 @@ public class GoodsFragment extends Fragment implements Runnable {
             }
         };
         new Thread(this).start();
+        //商品详情图片
         int[] imgdata = {R.mipmap.barcode_suceess, R.mipmap.barcode_suceess, R.mipmap.barcode_suceess};
         My_goods_adapter adapter = new My_goods_adapter(getActivity(), imgdata, handler);
         goods_f_vp.setAdapter(adapter);
+        //一键分享
         goods_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.QQ)
+                        .withText("hello")
+                        .setCallback(umShareListener)
+                        .share();
 
             }
         });
         return view;
     }
+    //授权第三方
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Log.d("plat","platform"+platform);
+
+            Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            if(t!=null){
+                Log.d("throw","throw:"+t.getMessage());
+            }
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 
     private void initGoodsData() {
@@ -157,9 +190,10 @@ public class GoodsFragment extends Fragment implements Runnable {
             }
         });
     }
+
     private void initListViewData() {
         str_exit = goodsBean.getData().getPrescription().getShipOffSetText();
-         adapter = new My_Grid_Goods_List_Adapter(address, str_exit, goodslists, getActivity());
+        adapter = new My_Grid_Goods_List_Adapter(address, str_exit, goodslists, getActivity());
         goods_list.setAdapter(adapter);
         goods_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

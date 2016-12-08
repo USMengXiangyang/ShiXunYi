@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#fff"
-            android:text="重新获取"
+            android:text="60秒"
             android:textColor="#FFE4C4" />
     </LinearLayout>
 

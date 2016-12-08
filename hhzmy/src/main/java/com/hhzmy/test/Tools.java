@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
  * 时间：2016/1124
  */
 public class Tools {
+    //正则表达式
     public static boolean isMoble(String str){
         Pattern pattern = Pattern.compile("1[0-9]{10}");
         Matcher matcher = pattern.matcher(str);
