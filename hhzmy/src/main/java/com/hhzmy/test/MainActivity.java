@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.hhzmy.twicelogin.TwiceLogin;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView gpsImg = (ImageView) findViewById(R.id.gpsImg);
         handler.postDelayed(runnable, 2000);
+        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(MainActivity.this, "584657949f06fd18e4001b80", "mxy"));
+
         super.onCreate(savedInstanceState);
     }
 
@@ -34,4 +37,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     };
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

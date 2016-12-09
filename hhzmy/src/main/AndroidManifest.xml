@@ -124,6 +124,11 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 科大讯飞   end -->
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <application
         android:name="com.hhzmy.dataneturl.DataImageLoader"
         android:allowBackup="true"
@@ -167,7 +172,7 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="584657949f06fd18e4001b80" />
-
+y
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -304,6 +309,11 @@
             android:value="57fbea6b7bb9ab4e93a97f12" />
 
         <activity android:name=".ShouSuoActivity"></activity>
+
+
+
+        <meta-data android:value="584657949f06fd18e4001b80" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="mxy" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>
