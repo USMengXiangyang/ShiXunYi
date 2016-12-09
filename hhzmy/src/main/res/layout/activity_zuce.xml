@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="#fff"
         android:orientation="horizontal">
 
         <TextView
@@ -47,16 +48,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:maxLength="11"
             android:elegantTextHeight="true"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:maxLength="11" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/checText"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/zuce_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="下一步"
         android:layout_gravity="center_horizontal"
-        />
+        android:text="下一步" />
 
 </LinearLayout>

@@ -3,6 +3,8 @@ package com.hhzmy.dataneturl;
 import android.app.Application;
 
 import com.hhzmy.test.R;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -10,6 +12,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by asus on 2016/11/9.
@@ -26,7 +31,13 @@ public class DataImageLoader extends Application {
     public void onCreate() {
         super.onCreate();
         SetImage();
+        //umeng分享
         UMShareAPI.get(this);
+        //极客推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+        //讯飞语音听写
+        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID+"=584a655b");
     }
 
     private void SetImage() {

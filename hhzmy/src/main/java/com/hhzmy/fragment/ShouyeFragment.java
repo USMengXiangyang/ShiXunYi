@@ -28,6 +28,7 @@ import com.hhzmy.bean.JsonBean;
 import com.hhzmy.dataneturl.OkHttp;
 import com.hhzmy.test.ErweimaActivity;
 import com.hhzmy.test.R;
+import com.hhzmy.test.ShouSuoActivity;
 import com.hhzmy.webview.DetailsActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -71,6 +72,7 @@ public class ShouyeFragment extends Fragment {
     //二维码扫描
     private ImageView home_scan;
     private List<JsonBean.DataBean.TagBean> data;
+    private ImageView home_edit;
 
 
     @Nullable
@@ -88,7 +90,13 @@ public class ShouyeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        home_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ShouSuoActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -96,10 +104,10 @@ public class ShouyeFragment extends Fragment {
         shouye_vp = (ViewPager) view.findViewById(R.id.shouye_vp);
         home_grid = (GridView) view.findViewById(R.id.home_gri);
         home_scan = (ImageView) view.findViewById(R.id.home_scan);
+        home_edit = (ImageView) view.findViewById(R.id.home_edit);
     }
 
     private void initData() {
-
         OkHttp.getAsync(pathjson, new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
